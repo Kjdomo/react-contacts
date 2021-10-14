@@ -1,59 +1,48 @@
-import React from 'react';
+import { useRef, useContext } from 'react';
 
-class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-        };
+import AuthContext from '../../contexts/AuthContext';
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    }
+const LoginForm = () => {
+    const usernameRef = useRef("");
+    const passwordRef = useRef("");
 
-    handleInputChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
+    const { login } = useContext(AuthContext);
 
-    handleFormSubmit(event) {
+    const handleFormSubmit = (event) => {
         event.preventDefault();
-        
+        login(usernameRef.current.valueOf, passwordRef.current.value);
+        usernameRef.current.value = "";
+        passwordRef.current.value = "";
+
     }
 
-    render() {
-        return (
-            <form onSubmit={this.handleFormSubmit}>
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input 
-                        id="username"
-                        name="username"
-                        type="text" 
-                        placeholder="Username"  
-                        value={this.state.username}
-                        onChange={this.handleInputChange}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input 
-                        id="password"
-                        name="password"
-                        type="password" 
-                        placeholder="Password"
-                        value={this.state.password}
-                        onChange={this.handleInputChange}
-                    />
-                </div>
-                <div>
-                    <button type="submit">Login</button>
-                </div>
-            </form>
-        )
-    }
+    return (
+        <form onSubmit={handleFormSubmit}>
+            <div>
+                <label htmlFor="username">Username</label>
+                <input 
+                    id="username"
+                    name="username"
+                    type="text" 
+                    placeholder="Username"  
+                    ref={usernameRef}
+                />
+            </div>
+            <div>
+                <label htmlFor="password">Password</label>
+                <input 
+                    id="password"
+                    name="password"
+                    type="password" 
+                    placeholder="Password"
+                    ref={passwordRef}
+                />
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    );
 }
 
 export default LoginForm;
