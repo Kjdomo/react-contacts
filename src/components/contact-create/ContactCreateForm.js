@@ -1,101 +1,95 @@
-import React from "react";
+import React, { useRef, useContext } from "react";
 
-class ContactCreateForm extends React.Component {
-    
-    constructor(props) {
-        super(props);
+import ContactsContext from "../../contexts/ContactsContext";
 
-        this.state = {
-            firstName: '',
-            lastName: '',
-            phoneNumber: '',
-            email: '',
-            address: '',
-            profilePic: '',
-        };
+const ContactCreateForm = () => {
+    const firstNameRef = useRef("");
+    const lastNameRef = useRef("");
+    const phoneNumberRef = useRef("");
+    const emailRef = useRef("");
+    const addressRef = useRef("");
+    const profilePicRef = useRef("");
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    }
+    const { addContact } = useContext(ContactsContext);
 
-    handleInputChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
-
-    handleFormSubmit(event) {
+    const handleFormSubmit = (event) => {
         event.preventDefault();
+        addContact({
+            firstName: firstNameRef.current.value,
+            lastName: lastNameRef.current.value,
+            phoneNumber: phoneNumberRef.current.value, 
+            email: emailRef.current.value, 
+            address: addressRef.current.value, 
+            profilePic: profilePicRef.current.value,
+        });
+        firstNameRef.current.value = "";
+        lastNameRef.current.value = "";
+        phoneNumberRef.current.value = "";  
+        emailRef.current.value = ""; 
+        addressRef.current.value = ""; 
+        profilePicRef.current.value = "";
     }
 
-    render() {
-        return (
-            <form onSubmit={this.handleFormSubmit}>
+    return (
+        <form onSubmit={handleFormSubmit}>
+            <div>
+                <img src={profilePicRef.current.value} alt="Profile preview." />
+            </div>
+            <div>
                 <div>
-                    <img src={this.state.profilePic} alt="Profile preview." />
+                    <input
+                        ref={firstNameRef}
+                        type="text"
+                        placeholder="First Name"
+                        name="firstName"
+                    />
                 </div>
                 <div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="First Name"
-                            name="firstName"
-                            value={this.state.firstName}
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Last Name"
-                            name="lastName"
-                            value={this.state.lastName}
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="tel"
-                            placeholder="Phone Number"
-                            name="phoneNumber"
-                            value={this.state.phoneNumber}
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Address"
-                            name="address"
-                            value={this.state.address}
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Profile Picture Url"
-                            name="profilePic"
-                            value={this.state.profilePic}
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <button type="submit">Add Contact</button>
-                    </div>
+                    <input
+                        ref={lastNameRef}
+                        type="text"
+                        placeholder="Last Name"
+                        name="lastName"
+                    />
                 </div>
-            </form>
-        )
-    }
+                <div>
+                    <input
+                        ref={phoneNumberRef}
+                        type="tel"
+                        placeholder="Phone Number"
+                        name="phoneNumber"
+                    />
+                </div>
+                <div>
+                    <input
+                        ref={emailRef}
+                        type="email"
+                        placeholder="Email"
+                        name="email"
+                    />
+                </div>
+                <div>
+                    <input
+                        ref={addressRef}
+                        type="text"
+                        placeholder="Address"
+                        name="address"
+                    />
+                </div>
+                <div>
+                    <input
+                        ref={profilePicRef}
+                        type="text"
+                        placeholder="Profile Picture Url"
+                        name="profilePic"
+                    />
+                </div>
+                <div>
+                    <button type="submit">Add Contact</button>
+                </div>
+            </div>
+        </form>
+    );
 }
 
 export default ContactCreateForm;

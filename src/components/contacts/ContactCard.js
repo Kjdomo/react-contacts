@@ -1,4 +1,4 @@
-const ContactCard = ({ firstName='', lastName='', phoneNumber='', profilePic='' }) => {
+const ContactCard = ({ firstName='', lastName='', phoneNumber='', profilePic='', removeContact }) => {
     return (
         <div>
             <div>
@@ -11,7 +11,7 @@ const ContactCard = ({ firstName='', lastName='', phoneNumber='', profilePic='' 
                 </div>
             </div>
             <div>
-                <button>X</button>
+                <button onClick={removeContact}>X</button>
             </div>
         </div>
     )

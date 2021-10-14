@@ -1,9 +1,9 @@
 import ContactDetailsCard from "./ContactDetailsCard";
 
-const ContactDetailsPage = ({ contact }) => {
+const ContactDetailsPage = () => {
     return (
         <div>
-            <ContactDetailsCard contact={contact} />
+            <ContactDetailsCard />
         </div>
     )
 }

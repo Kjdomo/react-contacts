@@ -1,4 +1,11 @@
-const  ContactDetailsCard = ({ contact }) => {
+import { useContext } from "react";
+import ContactsContext from "../../contexts/ContactsContext";
+
+const  ContactDetailsCard = () => {
+    const { contacts } = useContext(ContactsContext);
+    
+    const contact = contacts[0];
+
     return (
         <div>
             <div>
