@@ -1,4 +1,5 @@
 import { useRef, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import AuthContext from '../../contexts/AuthContext';
 
@@ -6,13 +7,17 @@ const RegisterForm = () => {
     const usernameRef = useRef("");
     const passwordRef = useRef("");
 
-    const { register } = useContext(AuthContext);
+    const { register, user } = useContext(AuthContext);
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        register(usernameRef.current.valueOf, passwordRef.current.value);
+        register(usernameRef.current.value, passwordRef.current.value);
         usernameRef.current.value = "";
         passwordRef.current.value = "";
+    }
+
+    if (user === null) {
+        return <Redirect to="/" />
     }
 
     return (

@@ -1,10 +1,21 @@
 import { useContext } from "react";
+import { useParams, Redirect } from "react-router-dom";
 import ContactsContext from "../../contexts/ContactsContext";
 
 const  ContactDetailsCard = () => {
-    const { contacts } = useContext(ContactsContext);
+    const { contacts, isLoading } = useContext(ContactsContext);
+
+    const { id } = useParams();
     
-    const contact = contacts[0];
+    const contact = contacts.find((contact) => contact.id === parseInt(id));
+
+    if (isLoading) {
+        return <div>Loading ...</div>
+    }
+
+    if (contact === undefined) {
+        return <Redirect to="/" />
+    }
 
     return (
         <div>

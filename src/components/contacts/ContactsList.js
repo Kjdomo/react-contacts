@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import ContactCard from "./ContactCard"
 import ContactsContext from "../../contexts/ContactsContext";
 
@@ -8,14 +9,16 @@ const ContactList = () => {
     return (
         <div>
             {contacts.map((contact) => 
-                <ContactCard 
-                    removeContact={() => removeContact(contact.id)}
-                    key={contact.id}
-                    firstName={contact.firstName} 
-                    lastName={contact.lastName} 
-                    phoneNumber={contact.phoneNumber} 
-                    profilePic={contact.profilePic}
-                />
+                <Link to={`/contacts/${contact.id}`}>
+                    <ContactCard 
+                        removeContact={() => removeContact(contact.id)}
+                        key={contact.id}
+                        firstName={contact.firstName} 
+                        lastName={contact.lastName} 
+                        phoneNumber={contact.phoneNumber} 
+                        profilePic={contact.profilePic}
+                    />
+                </Link>
             )}
         </div>
     )

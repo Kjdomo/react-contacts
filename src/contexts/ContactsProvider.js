@@ -44,10 +44,13 @@ const mockContacts = [
 
 const ContactsProvider = ({ children }) => {
     const [contacts, setContacts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(() => {
         const storedContacts = getContacts();
         setContacts(storedContacts.length ? storedContacts : mockContacts);
+        setIsLoading(false);
     }, []);
 
     const addContact = (contact) => {
