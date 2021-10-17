@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useState } from "react";
 
 import ContactsContext from "../../contexts/ContactsContext";
 
@@ -8,7 +8,7 @@ const ContactCreateForm = () => {
     const phoneNumberRef = useRef("");
     const emailRef = useRef("");
     const addressRef = useRef("");
-    const profilePicRef = useRef("");
+    const [profilePic, setProfirePic ]= useState("");
 
     const { addContact } = useContext(ContactsContext);
 
@@ -20,20 +20,20 @@ const ContactCreateForm = () => {
             phoneNumber: phoneNumberRef.current.value, 
             email: emailRef.current.value, 
             address: addressRef.current.value, 
-            profilePic: profilePicRef.current.value,
+            profilePic: profilePic,
         });
         firstNameRef.current.value = "";
         lastNameRef.current.value = "";
         phoneNumberRef.current.value = "";  
         emailRef.current.value = ""; 
         addressRef.current.value = ""; 
-        profilePicRef.current.value = "";
+        setProfirePic("");
     }
 
     return (
         <form onSubmit={handleFormSubmit}>
             <div>
-                <img src={profilePicRef.current.value} alt="Profile preview." />
+                <img src={profilePic} alt="Profile preview." />
             </div>
             <div>
                 <div>
@@ -78,7 +78,8 @@ const ContactCreateForm = () => {
                 </div>
                 <div>
                     <input
-                        ref={profilePicRef}
+                        value={profilePic}
+                        onChange={(event) => setProfirePic(event.target.value)}
                         type="text"
                         placeholder="Profile Picture Url"
                         name="profilePic"

@@ -9,6 +9,8 @@ import ContactCreatePage from "./contact-create";
 import ContactsProvider from "../contexts/ContactsProvider";
 import AuthProvider from "../contexts/AuthProvider";
 import PrivateRoute from '../routes/PrivateRoute';
+import NavBar from './navbar/NavBar';
+import HomePage from './homepage/HomaPage';
 
 const App = () => {
 
@@ -17,12 +19,14 @@ const App = () => {
       <AuthProvider>
         <ContactsProvider> 
         <Router>
+          <NavBar />
           <Switch>
               <Route path="/login" component={LoginPage} />
               <Route path="/register" component={RegisterPage} />
-              <PrivateRoute path="/contacts/add" component={ContactCreatePage} />
-              <PrivateRoute path="/contacts/:id" component={ContactDetailsPage} /> 
-              <PrivateRoute path="/" component={ContactsPage} />     
+              <PrivateRoute path="/contacts/add" to="/login" component={ContactCreatePage} />
+              <PrivateRoute path="/contacts/:id" to="/login" component={ContactDetailsPage} /> 
+              <PrivateRoute path="/contacts"  to="/" component={ContactsPage} />  
+              <Route path="/" component={HomePage} />   
           </Switch>
         </Router>
         </ContactsProvider>

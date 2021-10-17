@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 
 import AuthContext from "../contexts/AuthContext";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, to, ...rest }) => {
     const authContext = useContext(AuthContext);
     if (authContext.isLoading) {
         return <div>Loading Authentication Service</div>
@@ -12,7 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     return <Route {...rest} render={(props) => {
         return authContext.user
             ? <Component {...props} />
-            : <Redirect to='/login' />
+            : <Redirect to={to} />
     }} />
 }
 
