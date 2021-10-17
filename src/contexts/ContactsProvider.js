@@ -66,7 +66,7 @@ const ContactsProvider = ({ children }) => {
     }
 
     return (
-        <ContactsContext.Provider value={{ contacts, addContact, removeContact } }>
+        <ContactsContext.Provider value={{ contacts, addContact, removeContact, isLoading } }>
             {children}
         </ContactsContext.Provider>
 

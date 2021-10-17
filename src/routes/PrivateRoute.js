@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import LoginPage from "../components/login";
 
 import AuthContext from "../contexts/AuthContext";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     const authContext = useContext(AuthContext);
-
+    if (authContext.isLoading) {
+        return <div>Loading Authentication Service</div>
+    }
 
     return <Route {...rest} render={(props) => {
         return authContext.user

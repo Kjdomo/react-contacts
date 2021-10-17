@@ -1,9 +1,12 @@
 import { useRef, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useState } from 'react/cjs/react.development';
 
 import AuthContext from '../../contexts/AuthContext';
 
 const RegisterForm = () => {
+    const [success, setSuccess] = useState(false);
+
     const usernameRef = useRef("");
     const passwordRef = useRef("");
 
@@ -11,12 +14,15 @@ const RegisterForm = () => {
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        register(usernameRef.current.value, passwordRef.current.value);
+        const registered = register(usernameRef.current.value, passwordRef.current.value);
+        if (registered) {
+            setSuccess(true);
+        }
         usernameRef.current.value = "";
         passwordRef.current.value = "";
     }
 
-    if (user === null) {
+    if (success) {
         return <Redirect to="/" />
     }
 
